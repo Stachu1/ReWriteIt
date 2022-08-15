@@ -1,6 +1,7 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, time as t
+from sys import argv
 
 def time_list_to_wpm(tl):
     wpm_list = []
@@ -89,7 +90,11 @@ font80 = pygame.font.SysFont("Arial", 80)
 font30 = pygame.font.SysFont("Arial", 30)
 
 
-with open(f"ToReWrite.txt", "r") as f:
+if len(argv) > 1:
+    filename = argv[1]
+else:
+    filename = "ToReWrite.txt"
+with open(filename, "r") as f:
     text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
     # print(len(text))
 
@@ -111,12 +116,18 @@ while True:
     clock.tick(60)   
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
-            quit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+            if finished:
                 pygame.quit()
                 quit()
+            else:
+                finished = True
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                if finished:
+                    pygame.quit()
+                    quit()
+                else:
+                    finished = True
                 
             if event.key == pygame.K_BACKSPACE:
                 user_written =  user_written[:-1]
