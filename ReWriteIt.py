@@ -3,6 +3,8 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, time as t
 from sys import argv
 
+
+
 def time_list_to_wpm(tl):
     wpm_list = []
     for i in range(len(tl) - 1):
@@ -90,13 +92,19 @@ font80 = pygame.font.SysFont("Arial", 80)
 font30 = pygame.font.SysFont("Arial", 30)
 
 
-if len(argv) > 1:
-    filename = argv[1]
-else:
-    filename = "ToReWrite.txt"
-with open(filename, "r") as f:
-    text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
-    # print(len(text))
+try:
+    if len(argv) > 1:
+        with open(argv[1], "r") as f:
+            text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
+    else:
+        with open("ToReWrite.txt", "r") as f:
+            text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
+    print("Data loaded")
+except Exception as e:
+    print(f"An error occurred while loading data:\n{e}")
+    exit()
+
+# print(len(text))
 
 word_index = 0
 
