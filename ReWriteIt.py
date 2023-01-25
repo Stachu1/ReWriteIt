@@ -95,13 +95,15 @@ font30 = pygame.font.SysFont("Arial", 30)
 try:
     if len(argv) > 1:
         with open(argv[1], "r") as f:
-            text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
+            text = f.read()
     else:
         with open("ToReWrite.txt", "r") as f:
-            text = f.read().replace("\n", " ").replace("\r", " ").replace("  ", " ").split(" ")
+            text = f.read()
+    text = text.replace("\n", " ").replace("\r", " ").replace("  ", " ").replace("’", "'").replace("`", "'").split(" ")
     print("Data loaded")
 except Exception as e:
     print(f"An error occurred while loading data:\n{e}")
+    input("")
     exit()
 
 # print(len(text))
