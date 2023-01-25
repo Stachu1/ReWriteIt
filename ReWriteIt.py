@@ -100,6 +100,8 @@ try:
         with open("ToReWrite.txt", "r") as f:
             text = f.read()
     text = text.replace("\n", " ").replace("\r", " ").replace("  ", " ").replace("’", "'").replace("`", "'").split(" ")
+    if text[-1] == "":
+        text.pop(-1)
     print("Data loaded")
 except Exception as e:
     print(f"An error occurred while loading data:\n{e}")
